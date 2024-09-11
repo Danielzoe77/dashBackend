@@ -22,13 +22,16 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error("please enter all email ");
   }
   if (!username) {
-    res.status(400);
-    throw new Error("please enter your name ");
+    return res.status(400).json({ error: "please enter your username" })
+    // res.status(400);
+    // throw new Error("please enter your name ");
   }
 
-  if (password.length < 6) {
-    res.status(400);
-    throw new Error("Password must be up to 6 characters");
+  if (password.length < 8) {
+    return res.status(400).json({ error: "Password must be up to 8 characters" })
+
+    // res.status(400);
+    // throw new Error("Password must be up to 6 characters");
   }
 
   //checking if user exist
