@@ -18,21 +18,23 @@ const registerUser = asyncHandler(async (req, res) => {
 
   //validation
   if (!email) {
-    res.status(400);
-    throw new Error("please enter all email ");
+    return res.status(400).json({ error: "please enter your email" })
+    // res.status(400);
+    // throw new Error("please enter all email ");
   }
   if (!username) {
     return res.status(400).json({ error: "please enter your username" })
     // res.status(400);
     // throw new Error("please enter your name ");
   }
+  if(!password){
+    return res.status(400).json({ error: "please enter your password" })
+  }
 
   if (password.length < 8) {
     return res.status(400).json({ error: "Password must be up to 8 characters" })
-
-    // res.status(400);
-    // throw new Error("Password must be up to 6 characters");
   }
+ 
 
   //checking if user exist
   const userExist = await User.findOne({ email });
@@ -78,9 +80,13 @@ const registerUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-  if (!email || !password) {
-    res.status(400);
-    throw new Error("Please input your email and password");
+  if (!email) {
+    return res.status(400).json({ error: "please enter your email" })
+  
+  }
+
+  if (!password) {
+    return res.status(400).json({ error: "please enter your password" })
   }
 
   const user = await User.findOne({ email }).select("+password");
