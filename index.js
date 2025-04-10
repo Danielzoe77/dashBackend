@@ -14,13 +14,13 @@ const userDb = require("./model/userModel.js");
 //const OAuth2Strategy = require("passport-google-oauth2").Strategy;
 
 const corsOptions = {
-  origin: ["http://localhost:5173", "https://weather-app-zoe.vercel.app"],
+  origin: ["http://localhost:5173", "https://weather-app-zoe.vercel.app", "https://api.openweathermap.org"],
   credentials: true,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
  
 };
 
-const port = 3001;
+const port = 3004;
 //  connectDB();
 
 //middleware

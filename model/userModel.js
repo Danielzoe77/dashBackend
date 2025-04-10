@@ -5,19 +5,19 @@ const userScheme = mongoose.Schema(
   {
     username: {
       type: String,
-      required: function () {
-        return !this.googleId;
-      },
-      // required: [true, "please add a username"],
+      // required: function () {
+      //   return !this.googleId;
+      // },
+      required: [true, "please add a username"],
       trim: true,
     },
 
-    googleId: {
-      type: String,
-    },
-    googleDisplayName: {
-      type: String,
-    },
+    // googleId: {
+    //   type: String,
+    // },
+    // googleDisplayName: {
+    //   type: String,
+    // },
 
     email: {
       type: String,
@@ -31,14 +31,14 @@ const userScheme = mongoose.Schema(
 
     password: {
       type: String,
-      // required: [true, "please add a password"],
-      required: function () {
-        return !this.googleId;
-      },
+      required: [true, "please add a password"],
+      // required: function () {
+      //   return !this.googleId;
+      // },
       minLength: [8, "password should be at least 8 characters"],
-      maxLength: [12, "password should not be more than 12 characters"],
+      maxLength: [15, "password should not be more than 15 characters"],
       match: [
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,12}$/,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/,
         "Password should contain at least one lowercase letter, one uppercase letter, one number, and one special character.",
       ],
       select: false,
@@ -52,10 +52,10 @@ const userScheme = mongoose.Schema(
 // console.log("Google Id:", this.googleId);
 
 userScheme.pre("save", async function (next) {
-  console.log("Google Id:", this.googleId);
-  if (this.googleId && !this.username) {
-    this.username = this.googleDisplayName;
-  }
+  // console.log("Google Id:", this.googleId);
+  // if (this.googleId && !this.username) {
+  //   this.username = this.googleDisplayName;
+  // }
   if (!this.isModified("password")) {
     return next();
   }
